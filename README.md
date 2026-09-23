@@ -56,3 +56,29 @@ the closest trained road as a stand-in (see `DISPLAY_TO_MODEL_ROAD` in
 `app.py`).
 
 ## Project structure
+
+
+## Running it locally
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+The app loads the `.pkl`/`.h5` model files and the preprocessor directly
+from this folder, so keep all of them alongside `app.py`.
+
+## Notes
+
+- The ANN architecture is rebuilt in code and its weights are loaded
+  from `ann_model.weights.h5` (rather than loading a full saved model),
+  so the architecture in `app.py` must stay in sync with how the ANN was
+  trained in `code.ipynb`.
+- All UI text, labels, and code comments are in English by design, even
+  though the app is used and discussed in Arabic day to day.
+
+## Credits
+
+Built by عمر (Data Science & AI Technology student, SUTech El Sewedy
+University) as part of an AI & Data Science internship at ACUD —
+Administrative Capital for Urban Development ([acud.eg](https://acud.eg/)).
