@@ -62,6 +62,14 @@ the closest trained road as a stand-in (see `DISPLAY_TO_MODEL_ROAD` in
 
 ## ▶️ Running it locally
 
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+The app loads the `.pkl`/`.h5` model files and the preprocessor directly
+from this folder, so keep all of them alongside `app.py`.
+
 ## 📝 Notes
 
 - The ANN architecture is rebuilt in code and its weights are loaded
