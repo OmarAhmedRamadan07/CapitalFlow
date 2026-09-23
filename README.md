@@ -70,6 +70,8 @@ streamlit run app.py
 The app loads the `.pkl`/`.h5` model files and the preprocessor directly
 from this folder, so keep all of them alongside `app.py`.
 
+OR https://capitalflow.streamlit.app
+
 ## 📝 Notes
 
 - The ANN architecture is rebuilt in code and its weights are loaded
