@@ -18,19 +18,6 @@ import plotly.graph_objects as go
 from datetime import datetime, date
 
 
-
-
-def sample_weather(rng):
-    idx = rng.choice(len(weather_pool), p=weather_weights)
-    return weather_pool[idx]
-
-
-@st.cache_resource
-def load_models():
-    preprocessor = joblib.load("preprocessor.pkl")
-
-
-
 # ============================================================
 # SECTION: PAGE CONFIG
 # ============================================================
