@@ -1,87 +1,122 @@
-# 🚦 CapitalFlow AI
+# CapitalFlow AI — Smart Traffic Volume Prediction Dashboard
 
-**By Omar Ahmed Ramadan**
-🎓 Data Science & AI Technology Student — SUTech (El Sewedy University of Technology)
-🏢 AI & Data Science Internship Project — ACUD (Administrative Capital for Urban Development)
+**Graduation Project — AI & Data Science Internship at ACUD**
 
----
+|                 |                                                             |
+| --------------- | ----------------------------------------------------------- |
+| Name            | Omar Ahmed Ramadan Ramadan                                  |
+| Major / Program | Data Science and Artificial Intelligence Technology Program |
+| University      | El Sewedy University of Technology                          |
+| Company         | ACUD (Administrative Capital For Urban Development)         |
+| Training Topic  | AI & Data Science Internship                                |
 
-An interactive 📊 Streamlit dashboard that predicts hour-by-hour road traffic
-volume across Egypt's New Administrative Capital, and helps a driver pick
-the best route — including live road-closure handling and a faster-route
-advisor.
+An interactive Machine Learning and Deep Learning dashboard that predicts road traffic volume for Egypt's New Administrative Capital. This is the graduation project of the internship, built to bring together everything covered across the Machine Learning and Deep Learning phases of the program.
 
-## ✨ What it does
+## Overview
 
-- 🚗 **Traffic prediction** — pick an origin, a destination, a time, and the
-  weather, and the app predicts the traffic volume (vehicles/hour) on the
-  road that trip uses, plus an estimated extra wait time versus free flow.
-- 🚧 **Road Closure Advisor** — report a road as blocked or heavily jammed.
-  If it doesn't affect your trip, the app tells you so. If it does, it
-  finds the least busy alternative and estimates how much time it saves.
-- ⚡ **Faster Road Advisor** — even with no closures, if a different road
-  would carry less predicted traffic for the same trip, the app flags it.
-- 📈 **Traffic analytics** — historical charts (by road, by hour, by weather
-  condition, etc.) built from the underlying dataset.
-- 🏆 **Model performance** — a comparison table/chart of the trained models.
-- 📉 **Traffic trend** — a time-series view of how volume moves over time.
+CapitalFlow AI predicts how busy a specific road in the New Administrative Capital will be, given a trip (origin and destination), a date and time, and weather conditions. It combines three trained models — Random Forest, Gradient Boosting, and an Artificial Neural Network (ANN) — into an ensemble prediction, and wraps the whole thing in a full trip-planning dashboard: route selection, a road closure advisor that suggests the least busy alternative road, traffic analytics, and model performance comparisons.
 
-## 🧠 How prediction works
+The underlying dataset is a synthetic but realistic hourly traffic dataset (January 2025 – March 2026) built around the real geography of the New Capital, Cairo-region weather patterns, Egyptian public holidays, and Friday–Saturday weekend logic.
 
-Three models were trained on the historical dataset and are loaded
-pre-fit at runtime (no retraining happens in the app):
+## Features
 
-| Model | MAE | RMSE | R² |
-|---|---|---|---|
-| 🌳 Random Forest | 66.6 | 102.8 | 0.976 |
-| 🧬 ANN (Keras) | 90.4 | 131.7 | 0.961 |
-| 🚀 Gradient Boosting | 139.7 | 195.0 | 0.915 |
+- **Trip Planner** — pick an origin and destination from the New Capital's gateway highways and internal districts; the app resolves the correct road and travel direction automatically
+- **Date & Time Selection** — pick any date/time within the dataset's range to get a time-aware prediction
+- **Weather Input** — temperature, rainfall, cloud coverage, holiday, and weather condition, all used as live model inputs
+- **Road Closure Advisor** — report a closed or heavily jammed road, and the app recommends the least busy alternative among comparable roads, with an estimated extra delay
+- **Ensemble Prediction** — averages Random Forest, Gradient Boosting, and ANN predictions for a more robust traffic volume estimate
+- **Prediction Dashboard** — traffic volume estimate, congestion status, and estimated wait time for the selected trip
+- **Traffic Analytics** — traffic distribution, rush-hour breakdown, and historical trend charts for the selected road
+- **Model Performance Panel** — compares all trained models (Random Forest, ANN, Gradient Boosting, Linear Regression, LSTM) on MAE, RMSE, and R²
+- **Branded UI** — custom high-contrast theme with the ACUD logo integrated into the sidebar
 
-(Linear Regression and LSTM were also tried and are kept in
-`model_results.csv` for comparison, but are not used for live prediction.)
+## Model Performance
 
-The app blends the three deployed models' outputs into a single
-prediction, then classifies it into a traffic status (e.g. Moderate,
-Heavy) and converts it into an estimated wait time.
+Five models were trained and compared during development; the three strongest were kept in the deployed ensemble (Random Forest, Gradient Boosting, ANN):
 
-## 🗺️ Road network
+| Model             | MAE    | RMSE   | R²   |
+| ----------------- | ------ | ------ | ----- |
+| Random Forest     | 66.59  | 102.83 | 0.976 |
+| ANN               | 90.36  | 131.72 | 0.961 |
+| Gradient Boosting | 139.67 | 194.98 | 0.915 |
+| Linear Regression | 331.99 | 409.44 | 0.626 |
+| LSTM              | 332.50 | 454.64 | 0.539 |
 
-- 🛣️ **Gateway roads** (into/out of the city): Cairo-Suez Road,
-  Cairo-Ain Sokhna Road, Middle Ring Road, Regional Ring Road,
-  Mohamed Bin Zayed Axis (North/South), Al-Amal Axis.
-- 🏙️ **Internal districts**: CBD, Government District, Financial District,
-  R3, R5, R7, Diplomatic Quarter, Green River Corridor.
-- 🚸 **Side/feeder streets**: one lighter-traffic feeder road per internal
-  district, used by the Road Closure Advisor for road-specific numbers.
+## Tech Stack
 
-Trip origins/destinations map to whichever road actually carries that
-trip's traffic. A few newer locations (R5 District, all feeder streets)
-don't have their own trained model category yet, so they're scored using
-the closest trained road as a stand-in (see `DISPLAY_TO_MODEL_ROAD` in
-`app.py`).
+- **Machine Learning:** scikit-learn (Random Forest, Gradient Boosting, Linear Regression), joblib
+- **Deep Learning:** TensorFlow/Keras (ANN, LSTM)
+- **Data Processing:** pandas, NumPy
+- **Visualization:** Plotly
+- **Web App:** Streamlit
 
-## ▶️ Running it locally
+## Project Structure
+
+```
+CapitalFlow_AI_final/
+├── app.py                              # Streamlit dashboard application
+├── code.ipynb                          # Data preparation, EDA, and model training notebook
+├── New_Capital_Roads_Traffic_Volume.csv # Hourly traffic dataset (Jan 2025 – Mar 2026)
+├── model_results.csv                   # Comparison metrics for all trained models
+├── preprocessor.pkl                    # Fitted sklearn preprocessing pipeline
+├── rf_model.pkl                        # Trained Random Forest model
+├── gb_model.pkl                        # Trained Gradient Boosting model
+├── ann_model.weights.h5                # Trained ANN weights
+├── assets/
+│   └── acud_logo.png                   # ACUD branding for the sidebar
+├── requirements.txt                    # Python dependencies
+└── README.md
+```
+
+## Installation
+
+You have two options: run the app yourself from the terminal, or just open it directly from the live link with no setup at all.
 
 ```bash
+git clone https://github.com/OmarAhmedRamadan07/CapitalFlow.git
+cd CapitalFlow
 pip install -r requirements.txt
+```
+
+## Usage
+
+### Option 1 — Run the web app from the terminal
+
+```bash
 streamlit run app.py
 ```
 
-The app loads the `.pkl`/`.h5` model files and the preprocessor directly
-from this folder, so keep all of them alongside `app.py`.
+Then open the local URL shown in the terminal, set up your trip, time, and weather, and click **Predict Traffic**.
 
-## 📝 Notes
+### Option 2 — Open it directly from the link (no source code needed)
 
-- The ANN architecture is rebuilt in code and its weights are loaded
-  from `ann_model.weights.h5` (rather than loading a full saved model),
-  so the architecture in `app.py` must stay in sync with how the ANN was
-  trained in `code.ipynb`.
-- All UI text, labels, and code comments are in English by design, even
-  though the app is used and discussed in Arabic day to day.
+You don't have to clone the repo or install anything at all. The app is already deployed and ready to use straight from your browser:
 
-## 👤 Credits
+https://capitalflow.streamlit.app/
 
-Built by **Omar Ahmed Ramadan** — Data Science & AI Technology student,
-SUTech (El Sewedy University of Technology) — as part of an AI & Data
-Science internship at **ACUD**, Administrative Capital for Urban
-Development ([acud.eg](https://acud.eg/)). 🏢🇪🇬
+### Run the notebook
+
+Open `code.ipynb` to walk through data preparation, exploratory analysis, feature engineering, and the training/comparison of all five models.
+
+## How It Works
+
+1. **Data Preparation** — hourly traffic records covering every gateway and internal road, enriched with weather (temperature, rain, cloud cover, weather condition) and calendar context (holidays, weekends).
+2. **Preprocessing** — a fitted scikit-learn preprocessing pipeline (`preprocessor.pkl`) encodes categorical fields (road, weather, holiday) and scales numerical ones, producing the exact feature format the trained models expect.
+3. **Model Training** — five models were trained and compared: Random Forest, Gradient Boosting, Linear Regression, an ANN, and an LSTM (see performance table above).
+4. **Ensemble Prediction** — at inference time, the app runs the preprocessed input through Random Forest, Gradient Boosting, and the ANN, then averages the three predictions for the final traffic volume estimate.
+5. **Road Closure Advisor** — when a road is marked as closed or jammed, the app re-runs the fast sklearn models (Random Forest + Gradient Boosting) on every comparable candidate road under the same conditions, and recommends whichever one comes out least busy.
+6. **Dashboard** — the resulting prediction feeds a set of visual components: a congestion status indicator, estimated wait time, historical trend chart for the road, rush-hour distribution, and the live model performance comparison.
+
+## Notes
+
+- The three deployed models (`rf_model.pkl`, `gb_model.pkl`, `ann_model.weights.h5`) and the preprocessor are pre-trained; they are loaded as-is and are not retrained at runtime.
+- Date selection in the app is limited to the dataset's covered range (January 2025 – March 2026).
+- The dataset is synthetic but modeled on the real road network and general climate patterns of the New Administrative Capital.
+
+## Acknowledgments
+
+Built as the graduation project of the AI & Data Science Internship at ACUD (Administrative Capital for Urban Development), CET191 — Internship I, El Sewedy University of Technology.
+
+## License
+
+This project is provided for educational and portfolio purposes.
