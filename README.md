@@ -4,7 +4,7 @@
 
 |                 |                                                             |
 | --------------- | ----------------------------------------------------------- |
-| Name            | Omar Ahmed Ramadan Ramadan                                  |
+| Trainee Name    | Omar Ahmed Ramadan Ramadan                                  |
 | Major / Program | Data Science and Artificial Intelligence Technology Program |
 | University      | El Sewedy University of Technology                          |
 | Company         | ACUD (Administrative Capital For Urban Development)         |
@@ -88,13 +88,7 @@ streamlit run app.py
 
 Then open the local URL shown in the terminal, set up your trip, time, and weather, and click **Predict Traffic**.
 
-<<<<<<< HEAD
 ### Option 2 — Open it directly from the link (no source code needed)
-=======
-OR https://capitalflow.streamlit.app
-
-## 📝 Notes
->>>>>>> f37b6be27e7371ef6def1135d4ec7f1cb6495bc2
 
 You don't have to clone the repo or install anything at all. The app is already deployed and ready to use straight from your browser:
 
